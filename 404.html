@@ -2,13 +2,13 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Loading Video...</title>
+    <title>Akses Video</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         body {
             margin: 0;
-            background: #000;
+            background: #0f172a;
             color: #fff;
             font-family: Arial, sans-serif;
             display: flex;
@@ -17,32 +17,65 @@
             height: 100vh;
             text-align: center;
         }
+
+        .box {
+            max-width: 400px;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 15px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: #22c55e;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #16a34a;
+        }
     </style>
 </head>
 <body>
 
-<div>
-    <h2>Loading video...</h2>
-    <p>Please wait...</p>
+<div class="box">
+    <h2>🎬 Video Siap Ditonton</h2>
+    <p>Klik tombol di bawah untuk melanjutkan</p>
+
+    <button class="btn" id="goBtn">▶️ Tonton Sekarang</button>
+
+    <p id="error" style="color:red; margin-top:15px;"></p>
 </div>
 
 <script>
     let path = window.location.pathname;
 
-    // Hapus nama repo (vaselip)
-    let repo = "/vaselip/";
-    let id = path.replace(repo, "");
+    // AUTO DETECT repo (tidak hardcode)
+    let parts = path.split("/").filter(Boolean);
 
-    // Validasi
-    if (!id || id.includes("/")) {
-        document.body.innerHTML = "<h2>Invalid Link</h2>";
+    // Ambil ID terakhir
+    let id = parts[parts.length - 1];
+
+    let target = "";
+
+    // Validasi ID
+    if (!id || id.length < 4) {
+        document.getElementById("error").innerText = "Link tidak valid!";
     } else {
-        let target = "https://good.doodplay.com/" + id;
-
-        setTimeout(() => {
-            window.location.href = target;
-        }, 1500);
+        target = "https://good.doodplay.com/" + id;
     }
+
+    // Event klik tombol
+    document.getElementById("goBtn").onclick = function() {
+        if (target) {
+            window.location.href = target;
+        } else {
+            document.getElementById("error").innerText = "Gagal redirect!";
+        }
+    };
 </script>
 
 </body>
