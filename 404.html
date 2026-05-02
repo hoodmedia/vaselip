@@ -22,10 +22,6 @@
             max-width: 400px;
         }
 
-        h2 {
-            margin-bottom: 20px;
-        }
-
         .btn {
             display: block;
             width: 100%;
@@ -35,63 +31,61 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        .btn1 {
-            background: #3b82f6;
-            color: white;
-        }
+        .btn1 { background: #3b82f6; }
+        .btn2 { background: #22c55e; }
 
-        .btn2 {
-            background: #22c55e;
-            color: white;
-        }
-
-        .btn:hover {
-            opacity: 0.85;
-        }
+        .btn:hover { opacity: 0.85; }
     </style>
 </head>
 <body>
 
 <div class="box">
     <h2>🎬 Pilih Video</h2>
-    <p>Silakan pilih salah satu link di bawah</p>
+    <p>Klik salah satu link di bawah</p>
 
     <button class="btn btn1" id="video1">▶️ Video Link 1</button>
-    <button class="btn btn2" id="video2">▶️ Video Link 2</button>
+    <button class="btn btn2" id="video2">🎲 Video Random</button>
 
-    <p id="error" style="color:red;"></p>
+    <p id="info"></p>
 </div>
 
 <script>
     let path = window.location.pathname;
 
-    // Ambil ID terakhir dari URL
+    // Ambil ID dari URL (contoh: /vaselip/FlJDn)
     let parts = path.split("/").filter(Boolean);
-    let id = parts[parts.length - 1];
+    let mainID = parts[parts.length - 1];
 
-    let target = "";
+    // 🔥 LIST ID RANDOM (EDIT DI SINI)
+    let randomIDs = [
+        "FlJDn",
+        "tStVX",
+        "rtDNA",
+        "luPTE",
+        "ZawuZ",
+        "HkzRs",
+        "FTQle",
+        "iXkFb"
+    ];
 
-    if (!id || id.length < 4) {
-        document.getElementById("error").innerText = "Link tidak valid!";
-    } else {
-        target = "https://good.doodplay.com/" + id;
+    // Fungsi ambil random
+    function getRandomID() {
+        return randomIDs[Math.floor(Math.random() * randomIDs.length)];
     }
 
-    // Tombol Video 1
+    // Tombol 1 → pakai ID dari URL
     document.getElementById("video1").onclick = function() {
-        if (target) {
-            window.location.href = target;
+        if (mainID && mainID.length > 3) {
+            window.location.href = "https://good.doodplay.com/" + mainID;
         }
     };
 
-    // Tombol Video 2 (bisa kamu ubah nanti kalau mau beda link)
+    // Tombol 2 → random rotator
     document.getElementById("video2").onclick = function() {
-        if (target) {
-            window.location.href = target;
-        }
+        let randomID = getRandomID();
+        window.location.href = "https://good.doodplay.com/" + randomID;
     };
 </script>
 
