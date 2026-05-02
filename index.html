@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Video</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: block;
+            margin: 10px auto;
+            padding: 15px 30px;
+            width: 200px;
+            font-size: 16px;
+            color: white;
+            background: #2563eb;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Pilih Video</h1>
+    
+    <button class="btn" onclick="redirectLink()">Video Link 1</button>
+    <button class="btn" onclick="redirectLink()">Video Link 2</button>
+</div>
+
+<script>
+    function redirectLink() {
+        window.location.href = "http://good.doodplay.com/";
+    }
+</script>
+
+</body>
+</html>
