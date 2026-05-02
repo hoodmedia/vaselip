@@ -2,14 +2,14 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Akses Video</title>
+    <title>Pilih Video</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         body {
             margin: 0;
             background: #0f172a;
-            color: #fff;
+            color: white;
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
@@ -22,58 +22,75 @@
             max-width: 400px;
         }
 
+        h2 {
+            margin-bottom: 20px;
+        }
+
         .btn {
-            margin-top: 20px;
-            padding: 15px 25px;
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 15px;
             font-size: 16px;
             border: none;
             border-radius: 8px;
-            background: #22c55e;
-            color: white;
             cursor: pointer;
             transition: 0.3s;
         }
 
+        .btn1 {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn2 {
+            background: #22c55e;
+            color: white;
+        }
+
         .btn:hover {
-            background: #16a34a;
+            opacity: 0.85;
         }
     </style>
 </head>
 <body>
 
 <div class="box">
-    <h2>🎬 Video Siap Ditonton</h2>
-    <p>Klik tombol di bawah untuk melanjutkan</p>
+    <h2>🎬 Pilih Video</h2>
+    <p>Silakan pilih salah satu link di bawah</p>
 
-    <button class="btn" id="goBtn">▶️ Tonton Sekarang</button>
+    <button class="btn btn1" id="video1">▶️ Video Link 1</button>
+    <button class="btn btn2" id="video2">▶️ Video Link 2</button>
 
-    <p id="error" style="color:red; margin-top:15px;"></p>
+    <p id="error" style="color:red;"></p>
 </div>
 
 <script>
     let path = window.location.pathname;
 
-    // AUTO DETECT repo (tidak hardcode)
+    // Ambil ID terakhir dari URL
     let parts = path.split("/").filter(Boolean);
-
-    // Ambil ID terakhir
     let id = parts[parts.length - 1];
 
     let target = "";
 
-    // Validasi ID
     if (!id || id.length < 4) {
         document.getElementById("error").innerText = "Link tidak valid!";
     } else {
         target = "https://good.doodplay.com/" + id;
     }
 
-    // Event klik tombol
-    document.getElementById("goBtn").onclick = function() {
+    // Tombol Video 1
+    document.getElementById("video1").onclick = function() {
         if (target) {
             window.location.href = target;
-        } else {
-            document.getElementById("error").innerText = "Gagal redirect!";
+        }
+    };
+
+    // Tombol Video 2 (bisa kamu ubah nanti kalau mau beda link)
+    document.getElementById("video2").onclick = function() {
+        if (target) {
+            window.location.href = target;
         }
     };
 </script>
