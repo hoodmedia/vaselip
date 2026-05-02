@@ -37,56 +37,73 @@
         .btn2 { background: #22c55e; }
 
         .btn:hover { opacity: 0.85; }
+
+        #loading {
+            font-size: 14px;
+            color: #aaa;
+        }
     </style>
 </head>
 <body>
 
 <div class="box">
     <h2>🎬 Pilih Video</h2>
-    <p>Klik salah satu link di bawah</p>
+    <p>Klik salah satu tombol di bawah</p>
 
-    <button class="btn btn1" id="video1">▶️ Video Link 1</button>
-    <button class="btn btn2" id="video2">🎲 Video Random</button>
+    <button class="btn btn1" id="video1" disabled>▶️ Video Link 1</button>
+    <button class="btn btn2" id="video2" disabled>🎲 Video Random</button>
 
-    <p id="info"></p>
+    <p id="loading">Loading data...</p>
 </div>
 
 <script>
     let path = window.location.pathname;
-
-    // Ambil ID dari URL (contoh: /vaselip/FlJDn)
     let parts = path.split("/").filter(Boolean);
     let mainID = parts[parts.length - 1];
 
-    // 🔥 LIST ID RANDOM (EDIT DI SINI)
-    let randomIDs = [
-        "FlJDn",
-        "tStVX",
-        "rtDNA",
-        "luPTE",
-        "ZawuZ",
-        "HkzRs",
-        "FTQle",
-        "iXkFb"
-    ];
+    let allIDs = [];
 
-    // Fungsi ambil random
+    // Ambil list dari ids.txt
+    fetch("ids.txt")
+        .then(res => res.text())
+        .then(data => {
+            allIDs = data.split("\n")
+                .map(id => id.trim())
+                .filter(id => id.length > 3);
+
+            document.getElementById("loading").innerText = "Siap digunakan ✅";
+
+            initButtons();
+        })
+        .catch(err => {
+            document.getElementById("loading").innerText = "Gagal load data!";
+        });
+
     function getRandomID() {
-        return randomIDs[Math.floor(Math.random() * randomIDs.length)];
+        return allIDs[Math.floor(Math.random() * allIDs.length)];
     }
 
-    // Tombol 1 → pakai ID dari URL
-    document.getElementById("video1").onclick = function() {
-        if (mainID && mainID.length > 3) {
-            window.location.href = "https://good.doodplay.com/" + mainID;
-        }
-    };
+    function initButtons() {
 
-    // Tombol 2 → random rotator
-    document.getElementById("video2").onclick = function() {
-        let randomID = getRandomID();
-        window.location.href = "https://good.doodplay.com/" + randomID;
-    };
+        let btn1 = document.getElementById("video1");
+        let btn2 = document.getElementById("video2");
+
+        btn1.disabled = false;
+        btn2.disabled = false;
+
+        // Tombol 1 → ID dari URL
+        btn1.onclick = function() {
+            if (mainID && mainID.length > 3) {
+                window.location.href = "https://good.doodplay.com/" + mainID;
+            }
+        };
+
+        // Tombol 2 → random dari ids.txt
+        btn2.onclick = function() {
+            let randomID = getRandomID();
+            window.location.href = "https://good.doodplay.com/" + randomID;
+        };
+    }
 </script>
 
 </body>
