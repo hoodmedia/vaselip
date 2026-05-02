@@ -17,43 +17,31 @@
             height: 100vh;
             text-align: center;
         }
-
-        .box {
-            animation: fade 1s ease-in-out infinite alternate;
-        }
-
-        @keyframes fade {
-            from { opacity: 0.5; }
-            to { opacity: 1; }
-        }
     </style>
 </head>
 <body>
 
-<div class="box">
+<div>
     <h2>Loading video...</h2>
-    <p>Please wait a moment</p>
+    <p>Please wait...</p>
 </div>
 
 <script>
-    // Ambil path URL (contoh: /FlJDn)
     let path = window.location.pathname;
 
-    // Bersihkan "/" di depan
-    let id = path.replace("/", "");
+    // Hapus nama repo (vaselip)
+    let repo = "/vaselip/";
+    let id = path.replace(repo, "");
 
-    // Validasi ID
-    if (!id || id.length < 3) {
+    // Validasi
+    if (!id || id.includes("/")) {
         document.body.innerHTML = "<h2>Invalid Link</h2>";
     } else {
-
-        // Target redirect
         let target = "https://good.doodplay.com/" + id;
 
-        // Delay (opsional, bisa diubah)
         setTimeout(() => {
             window.location.href = target;
-        }, 2000);
+        }, 1500);
     }
 </script>
 
